@@ -16,3 +16,8 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::middleware('auth:api')->prefix('v1')->group(function() {
+    Route::get('/books/{id}', 'BookController@view')->where(['id' => '[0-9]+'])->name('books.view');
+    Route::get('/books/search/{status}', 'BookController@search')->where(['status' => '[A-Za-z ]+'])->name('books.filter');
+});

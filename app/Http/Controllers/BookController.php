@@ -7,6 +7,7 @@ use App\Book;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Resources\Book as BookResource;
 
 class BookController extends Controller
 {
@@ -45,27 +46,27 @@ class BookController extends Controller
     }
 
     /**
-     * API for filtering the book results based off the status. Currently only shows books based on current user.
+     * API for searching the book results based off the status. Currently only shows books based on current user.
      * @param $status string One of the valid statuses defined in Book::STATUSES.
      */
-    public function filter($status)
+    public function search($status)
     {
         $books = Book::where('status', $status)->where('user_id', Auth::id())->get();
 
-        return response()->json($books->toJson());
+        return BookResource::collection($books);
     }
 
     /**
      * API for showing a book of the current user.
      * @param $id string The id of the book.
      */
-    public function show($id)
+    public function view($id)
     {
         $book = Book::findOrFail($id);
         if (Gate::denies('view-book', $book)) {
             abort(403);
         }
-        return response()->json($book->toJson());
+        return new BookResource($book);
     }
 
     /**

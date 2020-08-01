@@ -20,4 +20,9 @@ class Book extends Model
         'finished',
         'retired',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
