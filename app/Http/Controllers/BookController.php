@@ -29,6 +29,7 @@ class BookController extends Controller
      * The home page.
      * List all the books that is associated to the logged in user only.
      * 
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -39,6 +40,7 @@ class BookController extends Controller
 
     /** 
      * View for creating a book.
+     * @return \Illuminate\Http\Response
     */
     public function create()
     {
@@ -48,6 +50,7 @@ class BookController extends Controller
     /**
      * API for searching the book results based off the status. Currently only shows books based on current user.
      * @param $status string One of the valid statuses defined in Book::STATUSES.
+     * @return \Illuminate\Http\Response
      */
     public function search($status)
     {
@@ -59,6 +62,7 @@ class BookController extends Controller
     /**
      * API for showing a book of the current user.
      * @param $id string The id of the book.
+     * @return \Illuminate\Http\Response
      */
     public function view($id)
     {
@@ -72,6 +76,7 @@ class BookController extends Controller
     /**
      * View for the editing of a book. Only allowed if the current user was the one who added the book.
      * @param $id string The id of the book.
+     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
@@ -87,6 +92,7 @@ class BookController extends Controller
      * User must be owner of the book to edit it.
      * @param $request Request The laravel Request object.
      * @param $id string The id of the book.
+     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
@@ -116,6 +122,7 @@ class BookController extends Controller
      * Destroy a book.
      * Must be owner of the book to destroy it.
      * @param $id string the id of the book.
+     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
@@ -133,6 +140,7 @@ class BookController extends Controller
     /**
      * Endpoint for creating a book.
      * @param $request Request Laravel request obeject.
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
