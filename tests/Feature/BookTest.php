@@ -49,8 +49,9 @@ class BookTest extends TestCase
 
         $response = $this->actingAs($this->user)->post(route('books.store'), $this->mock_values);
         
-        $response->assertStatus(302);
-        $response->assertRedirect(route('books.index'));
+        $response
+            ->assertStatus(302)
+            ->assertRedirect(route('books.index'));
 
         $this->assertDatabaseHas('books', $this->mock_values);
     }
@@ -68,13 +69,15 @@ class BookTest extends TestCase
         //Create our book.
         $response = $this->actingAs($this->user)->post(route('books.store'), $this->mock_values);
 
-        $response->assertStatus(302);
-        $response->assertRedirect(route('books.index'));
+        $response
+            ->assertStatus(302)
+            ->assertRedirect(route('books.index'));
 
         $response = $this->actingAs($this->user)->patch(route('books.update', 1), $edit_values);
         
-        $response->assertStatus(302);
-        $response->assertRedirect(route('books.index'));
+        $response
+            ->assertStatus(302)
+            ->assertRedirect(route('books.index'));
 
         $this->assertDatabaseHas('books', $edit_values);
     }
@@ -85,12 +88,14 @@ class BookTest extends TestCase
         //Create our book.
         $response = $this->actingAs($this->user)->post(route('books.store'), $this->mock_values);
 
-        $response->assertStatus(302)
+        $response
+            ->assertStatus(302)
             ->assertRedirect(route('books.index'));
 
         $response = $this->actingAs($this->user)->delete(route('books.destroy', 1));
         
-        $response->assertStatus(302)
+        $response
+            ->assertStatus(302)
             ->assertRedirect(route('books.index'));
 
         $this->assertDeleted('books', $this->mock_values);
@@ -102,13 +107,16 @@ class BookTest extends TestCase
         //Create our book.
         $response = $this->actingAs($this->user)->post(route('books.store'), $this->mock_values);
 
-        $response->assertStatus(302);
-        $response->assertRedirect(route('books.index'));
+        $response
+            ->assertStatus(302)
+            ->assertRedirect(route('books.index'));
 
         $response = $this->actingAs($this->user, 'api')->getJson(route('books.view', 1));
 
-        $response->assertStatus(200);
-        $response->assertSee($this->mock_values['title']);
+        $response
+            ->assertStatus(200)
+            ->assertSee($this->mock_values['title'])
+            ->assertDontSee('user_id');
     }
 
     /** @test */
@@ -117,17 +125,21 @@ class BookTest extends TestCase
         //Create our book.
         $response = $this->actingAs($this->user)->post(route('books.store'), $this->mock_values);
 
-        $response->assertStatus(302);
-        $response->assertRedirect(route('books.index'));
+        $response
+            ->assertStatus(302)
+            ->assertRedirect(route('books.index'));
 
         $response = $this->actingAs($this->user, 'api')->getJson(route('books.filter', 'finished'));
 
-        $response->assertStatus(200);
-        $response->assertSee($this->mock_values['title']);
+        $response
+            ->assertStatus(200)
+            ->assertSee($this->mock_values['title'])
+            ->assertDontSee('user_id');
 
         $response = $this->actingAs($this->user, 'api')->getJson(route('books.filter', 'invalid'));
 
-        $response->assertStatus(200);
-        $response->assertSee('[]');
+        $response
+            ->assertStatus(200)
+            ->assertSee('[]');
     }
 }
