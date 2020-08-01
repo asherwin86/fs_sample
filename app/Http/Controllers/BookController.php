@@ -103,10 +103,10 @@ class BookController extends Controller
             abort(403);
         }
 
-        $book->title = $request->get('title');
-        $book->author = $request->get('author');
-        $book->blurb = $request->get('blurb');
-        $book->status = $request->get('status');
+        $book->title = $request->title;
+        $book->author = $request->author;
+        $book->blurb = $request->blurb;
+        $book->status = $request->status;
         $book->save();
 
         return redirect('/books')->with('success', __('Book updated.'));
@@ -145,10 +145,10 @@ class BookController extends Controller
 
         $book = new Book([
             'user_id' => Auth::id(),
-            'title' => $request->get('title'),
-            'author' => $request->get('author'),
-            'blurb' => $request->get('blurb'),
-            'status' => $request->get('status'),
+            'title' => $request->title,
+            'author' => $request->author,
+            'blurb' => $request->blurb,
+            'status' => $request->status,
         ]);
         $book->save();
 
