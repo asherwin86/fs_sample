@@ -26,5 +26,9 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         //
+        Gate::define('update-book', 'App\Policies\BookPolicy@default');
+        Gate::define('view-book', 'App\Policies\BookPolicy@default');
+        Gate::define('destroy-book', 'App\Policies\BookPolicy@default');
+
     }
 }
